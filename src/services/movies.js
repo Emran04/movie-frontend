@@ -7,3 +7,5 @@ export const getMovies = (filter = {}) => client.get('/movies', {
     return Qs.stringify(params, { arrayFormat: 'brackets' });
   },
 });
+
+export const importMovie = (data) => client.post('/admin/import-movie', data)

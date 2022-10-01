@@ -7,6 +7,8 @@ import {
 import Root from "./routes/root";
 import Profile from './routes/profile';
 import HomePage from './components/HomePage';
+import Login from './components/Login';
+import ImportMovie from './components/ImportMovie';
 import reportWebVitals from './reportWebVitals';
 
 const router = createBrowserRouter([
@@ -21,6 +23,14 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
+      },
+      {
+        path: "/import-movie",
+        element: <ImportMovie />,
+      },
+      {
+        path: "/customer-login",
+        element: <Login />,
       },
     ]
   },
