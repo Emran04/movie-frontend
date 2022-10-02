@@ -8,8 +8,10 @@ import Root from "./routes/root";
 import Profile from './routes/profile';
 import HomePage from './components/HomePage';
 import Login from './components/Login';
+import MovieDetails from './components/MovieDetails';
 import ImportMovie from './components/ImportMovie';
 import reportWebVitals from './reportWebVitals';
+import { AuthProvider } from './context/auth-context'
 
 const router = createBrowserRouter([
   {
@@ -23,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
+      },
+      {
+        path: "/movies/:movieId",
+        element: <MovieDetails />,
       },
       {
         path: "/import-movie",
@@ -39,7 +45,9 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );
 

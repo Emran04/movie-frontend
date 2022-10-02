@@ -8,4 +8,6 @@ export const getMovies = (filter = {}) => client.get('/movies', {
   },
 });
 
+export const movieDetails = (id) => client.get(`/movies/${id}`)
+
 export const importMovie = (data) => client.post('/admin/import-movie', data)

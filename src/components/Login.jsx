@@ -9,15 +9,27 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import {login} from '../services/customer';
+import { CUSTOMER_DATA, CUSTOMER_TOKEN } from "../configs/consts";
 
 export default function SignIn() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const values = {
       email: data.get('email'),
       password: data.get('password'),
-    });
+    };
+    login(values)
+    .then((res) => {
+      localStorage.setItem(CUSTOMER_DATA, JSON.stringify({
+        user: res.data.user,
+        plan: res.data.plan,
+      }))
+      localStorage.setItem(CUSTOMER_TOKEN, res.data.token)
+      window.location.href = '/';
+    })
+    .catch((err) => console.log(err))
   };
 
   return (
@@ -35,7 +47,7 @@ export default function SignIn() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Customer Sign in
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
