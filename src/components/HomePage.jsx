@@ -30,13 +30,12 @@ export default function HomePage() {
   const handleSearchSubmit = (e) => {
     e.preventDefault()
     fetchMovies({ s: q })
-    console.log('submitted')
   }
 
   if (isLoading) {
     return <h4>Loading movies...</h4>
   }
-  
+
   return (
     <main>
       <CssBaseline />
