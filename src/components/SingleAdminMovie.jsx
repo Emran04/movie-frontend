@@ -8,12 +8,12 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 export default function SingleAdminMovie(props) {
-  const { movie } = props
+  const { movie, handleOpenImport } = props
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 400 }}>
       <CardMedia
         component="img"
-        height="140"
+        height="180"
         image={movie?.Poster}
         alt={movie?.Title}
       />
@@ -26,6 +26,7 @@ export default function SingleAdminMovie(props) {
         </Typography>
       </CardContent>
       <CardActions>
+        <Button onClick={() => handleOpenImport(movie)}>Import</Button>
         <Button size="small"><Link to={`/movies/${movie.id}`}>Watch</Link></Button>
       </CardActions>
     </Card>

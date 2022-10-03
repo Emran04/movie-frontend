@@ -17,8 +17,8 @@ import { CUSTOMER_DATA, CUSTOMER_TOKEN, ADMIN_DATA, ADMIN_TOKEN } from '../confi
 
 const pages = [
   {
-    path: 'profile',
-    label: 'Profile'
+    path: 'admin-movies',
+    label: 'Admin Movies'
   }
 ];
 const settings = ['Logout'];

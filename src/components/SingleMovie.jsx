@@ -10,10 +10,10 @@ import Typography from '@mui/material/Typography';
 export default function SingleMovie(props) {
   const {movie} = props
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 400 }}>
       <CardMedia
         component="img"
-        height="140"
+        height="180"
         image={movie.poster}
         alt={movie.title}
       />

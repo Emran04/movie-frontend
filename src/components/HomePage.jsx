@@ -33,18 +33,25 @@ export default function HomePage() {
   }
 
   if (isLoading) {
-    return <h4>Loading movies...</h4>
+    return (
+      <main>
+        <CssBaseline />
+        <h4>Loading movies...</h4>
+      </main>
+    )
   }
 
   return (
     <main>
       <CssBaseline />
-      <Search handleSearchSubmit={handleSearchSubmit} handleSearchChange={handleSearchChange} />
       <Container sx={{ py: 8 }} maxWidth="md">
         <Grid container spacing={4}>
+          <Grid item xs={12}>
+            <Search handleSearchSubmit={handleSearchSubmit} handleSearchChange={handleSearchChange} />
+          </Grid>
           {
             !isLoading && movies && movies.data.map((movie) => (
-              <Grid item xs={12} sm={6} md={4} key={movie.id}>
+              <Grid item xs={12} sm={6} key={movie.id}>
                 <SingleMovie movie={movie} />
               </Grid>
             ))
