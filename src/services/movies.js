@@ -9,3 +9,5 @@ export const getMovies = (filter = {}) => client.get('/movies', {
 });
 
 export const movieDetails = (id) => client.get(`/movies/${id}`)
+
+export const rentMovie = (data) => client.post(`/movies/rent`, data)

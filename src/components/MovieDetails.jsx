@@ -2,13 +2,36 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
 import { movieDetails } from '../services/movies';
 import { CUSTOMER_TOKEN } from "../configs/consts";
+import Subscribe from './Subscribe';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 600,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 export default function MovieDetails() {
   let { movieId } = useParams();
   const [movieData, setMovieData] = useState(null);
   const [erroMessage, setErroMessage] = useState(null);
+  const [shouldSubscribe, setShouldSubscribe] = useState(false);
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => setOpen(false);
 
   const fetchMovieDetails = useCallback(() => {
     movieDetails(movieId)
@@ -18,6 +41,7 @@ export default function MovieDetails() {
       .catch((err) => {
         if (err.response.status === 403) {
           setErroMessage(err.response?.data?.message)
+          setShouldSubscribe(true);
         }
       })
   }, [movieId])
@@ -47,6 +71,19 @@ export default function MovieDetails() {
       {
         erroMessage && <h2>{erroMessage}</h2>
       }
+      {
+        shouldSubscribe && <Button variant='contained' onClick={handleOpen}>Subscribe now</Button>
+      }
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Subscribe movieId={movieId} />
+        </Box>
+      </Modal>
     </Container>
   );
 }
