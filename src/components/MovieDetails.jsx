@@ -56,6 +56,14 @@ export default function MovieDetails() {
 
   }, [fetchMovieDetails])
 
+  const actors = movieData?.actors ? movieData.actors.reduce((carry, current, idx) => {
+    let sap = '';
+    if (idx !== 0) {
+      sap = ', ';
+    }
+    return carry + sap + current?.actor?.name
+  }, '') : null
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -64,7 +72,8 @@ export default function MovieDetails() {
           <div>
             <img src={movieData?.poster} alt={movieData?.title} />
             <h4>{movieData.title}</h4>
-            <p>{movieData.release_year}</p>
+            <p>Release Year: {movieData.release_year}</p>
+            <p>Actors: {actors}</p>
           </div>
         )
       }
