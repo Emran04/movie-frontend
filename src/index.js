@@ -12,6 +12,7 @@ import MovieDetails from './components/MovieDetails';
 import ImportMovie from './components/ImportMovie';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './context/auth-context'
+import SignUp from './components/Signup';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/customer-login",
         element: <Login />,
+      },
+      {
+        path: "/customer-register",
+        element: <SignUp />,
       },
     ]
   },
