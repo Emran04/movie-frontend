@@ -6,9 +6,10 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Chip from '@mui/material/Chip';
 
 export default function SingleMovie(props) {
-  const {movie} = props
+  const { movie } = props
   return (
     <Card sx={{ maxWidth: 400 }}>
       <CardMedia
@@ -19,14 +20,15 @@ export default function SingleMovie(props) {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Lizard
+          {movie.title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {movie.title}
+          {movie?.release_year}
         </Typography>
       </CardContent>
       <CardActions>
         <Button size="small"><Link to={`/movies/${movie.id}`}>Watch</Link></Button>
+        {movie.plan === 'premium' ? <Chip label="Premimum" color="success" /> : null}
       </CardActions>
     </Card>
   );
