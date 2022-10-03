@@ -7,22 +7,22 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-export default function SingleMovie(props) {
-  const {movie} = props
+export default function SingleAdminMovie(props) {
+  const { movie } = props
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         component="img"
         height="140"
-        image={movie.poster}
-        alt={movie.title}
+        image={movie?.Poster}
+        alt={movie?.Title}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Lizard
+          {movie?.Title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {movie.title}
+          {movie?.Year}
         </Typography>
       </CardContent>
       <CardActions>

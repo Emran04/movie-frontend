@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
@@ -12,24 +10,22 @@ import Container from '@mui/material/Container';
 import {login} from '../services/customer';
 import { CUSTOMER_DATA, CUSTOMER_TOKEN, ADMIN_DATA, ADMIN_TOKEN } from "../configs/consts";
 
-export default function Login() {
+export default function AdminLogin() {
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const values = {
       email: data.get('email'),
       password: data.get('password'),
-      type: 'customer'
+      type: 'admin'
     };
     login(values)
     .then((res) => {
-      localStorage.setItem(CUSTOMER_DATA, JSON.stringify({
-        user: res.data.user,
-        plan: res.data.plan,
-      }))
-      localStorage.setItem(CUSTOMER_TOKEN, res.data.token)
-      localStorage.removeItem(ADMIN_DATA)
-      localStorage.removeItem(ADMIN_TOKEN)
+      localStorage.setItem(ADMIN_DATA, JSON.stringify(res.data.user))
+      localStorage.setItem(ADMIN_TOKEN, res.data.token)
+      localStorage.removeItem(CUSTOMER_TOKEN)
+      localStorage.removeItem(CUSTOMER_DATA)
       window.location.href = '/';
     })
     .catch((err) => console.log(err))
@@ -50,7 +46,7 @@ export default function Login() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Customer Sign in
+          Admin Sign in
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -81,13 +77,6 @@ export default function Login() {
           >
             Sign In
           </Button>
-          <Grid container>
-            <Grid item>
-              <Link href="/customer-register" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
         </Box>
       </Box>
     </Container>

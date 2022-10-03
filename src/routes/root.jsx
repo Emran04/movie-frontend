@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useAuth } from '../context/auth-context';
-import { CUSTOMER_DATA, CUSTOMER_TOKEN } from '../configs/consts';
+import { CUSTOMER_DATA, CUSTOMER_TOKEN, ADMIN_DATA, ADMIN_TOKEN } from '../configs/consts';
 
 const pages = [
   {
@@ -44,6 +44,8 @@ const Root = () => {
     if (setting === 'Logout') {
       localStorage.removeItem(CUSTOMER_TOKEN)
       localStorage.removeItem(CUSTOMER_DATA)
+      localStorage.removeItem(ADMIN_DATA)
+      localStorage.removeItem(ADMIN_TOKEN)
       window.location.reload()
     }
   };
