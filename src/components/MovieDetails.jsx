@@ -2,11 +2,10 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
-import { useAuth } from '../context/auth-context';
 import { movieDetails } from '../services/movies';
+import { CUSTOMER_TOKEN } from "../configs/consts";
 
 export default function MovieDetails() {
-  const { isCustomerLoggedIn } = useAuth();
   let { movieId } = useParams();
   const [movieData, setMovieData] = useState(null);
   const [erroMessage, setErroMessage] = useState(null);
@@ -24,12 +23,14 @@ export default function MovieDetails() {
   }, [movieId])
 
   useEffect(() => {
-    fetchMovieDetails()
-  }, [fetchMovieDetails])
+    const customerData = localStorage.getItem(CUSTOMER_TOKEN);
+    if (!customerData) {
+      setErroMessage('Please signup to watch!');
+    } else {
+      fetchMovieDetails()
+    }
 
-  if (!isCustomerLoggedIn) {
-    return <h2>Please signup to watch!</h2>
-  }
+  }, [fetchMovieDetails])
 
   return (
     <Container component="main" maxWidth="xs">
