@@ -56,24 +56,23 @@ const Root = () => {
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-            <Link to={'/'}>
-              <Typography
-                variant="h6"
-                noWrap
-                component="span"
-                sx={{
-                  mr: 2,
-                  display: { xs: 'none', md: 'flex' },
-                  fontFamily: 'monospace',
-                  fontWeight: 700,
-                  letterSpacing: '.3rem',
-                  color: 'inherit',
-                  textDecoration: 'none',
-                }}
-              >
-                Movie
-              </Typography>
-            </Link>
+            <Typography
+              variant="h6"
+              noWrap
+              component={Link}
+              to={'/'}
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            >
+              Movie
+            </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
               <IconButton
@@ -106,9 +105,7 @@ const Root = () => {
               >
                 {pages.map((page) => (
                   <MenuItem key={page.label}>
-                    <Link to={page.path}>
-                      <Typography textAlign="center">{page.label}</Typography>
-                    </Link>
+                    <Typography component={Link} to={page.path} textAlign="center">{page.label}</Typography>
                   </MenuItem>
                 ))}
               </Menu>
@@ -134,9 +131,7 @@ const Root = () => {
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
-                <Link to={page.path} key={page.path}>
-                  <Typography textAlign="center">{page.label}</Typography>
-                </Link>
+                <Button component={Link} to={page.path} style={{color: '#fff'}}>{page.label}</Button>
               ))}
             </Box>
 
@@ -146,8 +141,8 @@ const Root = () => {
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     {customer?.user?.name}
                   </IconButton>
-                </Tooltip> : <Button variant="outlined" color="secondary">
-                  <Link to={'/customer-login'}>Sign in</Link>
+                </Tooltip> : <Button component={Link} to={'/customer-login'} style={{color: '#fff'}}>
+                  Sign in
                 </Button>
               }
               <Menu
