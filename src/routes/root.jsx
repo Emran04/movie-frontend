@@ -138,9 +138,9 @@ const Root = () => {
             <Box sx={{ flexGrow: 0 }}>
               {
                 isCustomerLoggedIn ? <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Button onClick={handleOpenUserMenu} sx={{ p: 0 }} style={{color: '#fff'}}>
                     {customer?.user?.name}
-                  </IconButton>
+                  </Button>
                 </Tooltip> : <Button component={Link} to={'/customer-login'} style={{color: '#fff'}}>
                   Sign in
                 </Button>
