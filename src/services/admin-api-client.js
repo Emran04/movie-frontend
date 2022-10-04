@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADMIN_TOKEN } from "../configs/consts";
+import { ADMIN_TOKEN, ADMIN_DATA } from "../configs/consts";
 
 const token = localStorage.getItem(ADMIN_TOKEN);
 if (token) {
@@ -19,6 +19,7 @@ instance.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status === 401) {
       window.localStorage.removeItem(ADMIN_TOKEN);
+      window.localStorage.removeItem(ADMIN_DATA);
       window.location.href = '/admin-login';
     }
     return Promise.reject(error);

@@ -9,10 +9,26 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import {login} from '../services/customer';
+import { login } from '../services/customer';
 import { CUSTOMER_DATA, CUSTOMER_TOKEN, ADMIN_DATA, ADMIN_TOKEN } from "../configs/consts";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export default function Login() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -22,17 +38,21 @@ export default function Login() {
       type: 'customer'
     };
     login(values)
-    .then((res) => {
-      localStorage.setItem(CUSTOMER_DATA, JSON.stringify({
-        user: res.data.user,
-        plan: res.data.plan,
-      }))
-      localStorage.setItem(CUSTOMER_TOKEN, res.data.token)
-      localStorage.removeItem(ADMIN_DATA)
-      localStorage.removeItem(ADMIN_TOKEN)
-      window.location.href = '/';
-    })
-    .catch((err) => console.log(err))
+      .then((res) => {
+        localStorage.setItem(CUSTOMER_DATA, JSON.stringify({
+          user: res.data.user,
+          plan: res.data.plan,
+        }))
+        localStorage.setItem(CUSTOMER_TOKEN, res.data.token)
+        localStorage.removeItem(ADMIN_DATA)
+        localStorage.removeItem(ADMIN_TOKEN)
+        window.location.href = '/';
+      })
+      .catch((err) => {
+        if (err.response.status === 422) {
+          setOpen(true)
+        }
+      })
   };
 
   return (
@@ -46,6 +66,11 @@ export default function Login() {
           alignItems: 'center',
         }}
       >
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+            Invalid id or password!
+          </Alert>
+        </Snackbar>
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
           <LockOutlinedIcon />
         </Avatar>

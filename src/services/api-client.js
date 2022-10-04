@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CUSTOMER_TOKEN } from "../configs/consts";
+import { CUSTOMER_TOKEN, CUSTOMER_DATA } from "../configs/consts";
 
 const token = localStorage.getItem(CUSTOMER_TOKEN);
 if (token) {
@@ -19,6 +19,7 @@ instance.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status === 401) {
       window.localStorage.removeItem(CUSTOMER_TOKEN);
+      window.localStorage.removeItem(CUSTOMER_DATA);
       window.location.href = '/customer-login';
     }
     return Promise.reject(error);
